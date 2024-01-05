@@ -1,12 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
+export default function App() {
   return (
-    <div className="">
-
-    </div>
-  );
+    <div>App</div>
+  )
 }
-
-export default App;
