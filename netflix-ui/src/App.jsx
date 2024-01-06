@@ -1,20 +1,19 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Login from './pages/Login'
-import Signup from './pages/Signup'
-import Netflix from './pages/Netflix'
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Netflix from './pages/Netflix';
 
 export default function App() {
   return (
-    <div>
-      <BrowserRouter>
+    <Router>
+      <div>
         <Routes>
-          <Route exact path="/login" element = {<Login />} />
-          <Route exact path="/signup" element = {<Signup />} />
-          <Route exact path="/" element = {<Netflix />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<Netflix />} />
         </Routes>
-      </BrowserRouter>
-    </div>
-  )
+      </div>
+    </Router>
+  );
 }
