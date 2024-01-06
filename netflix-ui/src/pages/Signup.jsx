@@ -3,11 +3,10 @@ import styled from "styled-components"
 import BackgroundImage from "../components/BackgroundImage "
 import Header from "../components/Header"
 
-const Container = styled.div
 
 export default function Signup() {
   return (
-    <container>
+    <Container>
       <BackgroundImage />
       <Header />
       <div className='body flex column a-center j-center'>
@@ -23,6 +22,8 @@ export default function Signup() {
         </div>
         <button>Log In</button>
       </div>
-    </container>
+    </Container>
   )
 }
+
+const Container = styled.div``;
