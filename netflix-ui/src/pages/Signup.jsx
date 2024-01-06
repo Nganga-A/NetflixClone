@@ -1,7 +1,8 @@
 import React from 'react'
+import styled from "styled-components"
 
 export default function Signup() {
   return (
-    <div>Signup</div>
+    <container>Signup</div>
   )
 }
