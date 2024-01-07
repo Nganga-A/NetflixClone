@@ -25,7 +25,7 @@ const Container = styled.div`
     }
   }
   button {
-    padding: 0.5 1rem;
+    padding: 0.3rem 0.5rem;
     background-color: #e50914;
     border: none;
     cursor: pointer;
