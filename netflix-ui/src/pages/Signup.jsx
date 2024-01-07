@@ -2,15 +2,32 @@ import React, { useState } from 'react';
 import styled from "styled-components"
 import BackgroundImage from "../components/BackgroundImage "
 import Header from "../components/Header"
+import { firebaseAuth } from "../utils/firebase-config.js";
+import {createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Signup() {
 
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false)
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
+  });
+
+  const handleSignUp = async () => {
+    try {
+      const { email, password } = formValues;
+      await createUserWithEmailAndPassword(firebaseAuth, email, password);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  onAuthStateChanged(firebaseAuth, (currentUser) => {
+    if (currentUser) navigate("/");
   });
 
   return (
@@ -57,7 +74,7 @@ export default function Signup() {
               <button onClick={() => setShowPassword(true)}>Get Started</button>
             )}
         </div>
-        <button>Sign Up</button>
+        <button onClick={handleSignUp}>Sign Up</button>
       </div>
       </div>
     </Container>
