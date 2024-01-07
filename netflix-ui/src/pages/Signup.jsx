@@ -8,9 +8,9 @@ export default function Signup() {
   return (
     <Container>
       <BackgroundImage />
-      <div className="content">
+      <div className="content flex">
       <Header login  />
-      <div className='body flex column a-center j-center'>
+      <div className='body header flex column a-center j-center'>
         <div className='text flex column'>
           <h1>Unlimited movies, TV shows and more</h1>
           <h4>Watch anywhere, cancel anytime.</h4>
@@ -37,6 +37,56 @@ const Container = styled.div`
     background-color: rgba(0,0,0,0.5);
     height: 100vh;
     width: 100vw;
+    display: grid;
+    grid-templates-rows: 15vh 85vh;
+    .header {
+      margin-top:-10rem;
+    }
+    .body {
+      gap:1rem;
+      .text {
+        gap: 1rem;
+        text-align:center;
+        fontsize: 2rem;
+        h1 {
+          padding:0 25rem;
+        }
+      }
+      .form {
+        display:grid;
+        width:60%;
+        input {
+          color:black;
+          border: none;
+          padding: 1.5rem;
+          font-size: 1.2rem;
+          border:1px solid black;
+          &:focus {
+            outline:none;
+          }
+        }
+        button {
+          padding: 0.3rem 0.5rem;
+          background-color: #e50914;
+          border: none;
+          cursor: pointer;
+          color: white;
+          border-radius:0.1rem;
+          font-weight:bolder;
+          font-size: 1.05rem;
+        }
+      }
+    button {
+      padding: 0.3rem 0.5rem;
+      background-color: #e50914;
+      border: none;
+      cursor: pointer;
+      color: white;
+      border-radius:0.1rem;
+      font-weight:bolder;
+      font-size: 1.05rem;
+    }
+    }
 
   }
 `;
