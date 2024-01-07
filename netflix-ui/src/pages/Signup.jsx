@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react';
 import styled from "styled-components"
 import BackgroundImage from "../components/BackgroundImage "
 import Header from "../components/Header"
 
 
 export default function Signup() {
+
+
+  const [showPassword, setShowPassword] = useState(false)
+  const [formValues, setFormValues] = useState({
+    email: "",
+    password: "",
+  });
+
   return (
-    <Container>
+    <Container showPassword={showPassword}>
       <BackgroundImage />
       <div className="content">
       <Header login  />
@@ -17,11 +25,39 @@ export default function Signup() {
           <h6>Ready to watch? Enter your email to create or start membership</h6>
         </div>
         <div className='form'>
-          <input type='email' name='email' className='' placeholder='Email Address'/>
-          <input type='password' placeholder='Password' name='password'/>
-          <button>Get Started</button>
+        <input
+              type="email"
+              placeholder="Email address"
+              onChange={(e) =>
+                setFormValues({
+                  ...formValues,
+                  [e.target.name]: e.target.value,
+                })
+              }
+              name="email"
+              value={formValues.email}
+            />
+
+          {showPassword && (
+              <input
+                type="password"
+                placeholder="Password"
+                onChange={(e) =>
+                  setFormValues({
+                    ...formValues,
+                    [e.target.name]: e.target.value,
+                  })
+                }
+                name="password"
+                value={formValues.password}
+              />
+            )}
+
+          {!showPassword && (
+              <button onClick={() => setShowPassword(true)}>Get Started</button>
+            )}
         </div>
-        <button>Log In</button>
+        <button>Sign Up</button>
       </div>
       </div>
     </Container>
@@ -54,11 +90,13 @@ const Container = styled.div`
       }
       .form {
         display:grid;
+        grid-template-columns: ${({ showPassword }) =>
+          showPassword ? "1fr 1fr" : "2fr 1fr"};
         width:60%;
         input {
           color:black;
           border: none;
-          padding: 1.5rem;
+          padding: 0.8rem;
           font-size: 1.2rem;
           border:1px solid black;
           &:focus {
