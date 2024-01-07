@@ -35,6 +35,9 @@ body::-webkit-scrollbar {
 
 .j-between {
   justify-content: space-between;
+}
+
+.j-center{
   justify-content: center;
 }
 
