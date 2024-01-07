@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components"
 import BackgroundImage from "../components/BackgroundImage "
 import Header from "../components/Header"
@@ -17,6 +17,7 @@ export default function Signup() {
     password: "",
   });
 
+  // Function to handle user sign-up
   const handleSignUp = async () => {
     try {
       const { email, password } = formValues;
@@ -26,9 +27,14 @@ export default function Signup() {
     }
   };
 
-  onAuthStateChanged(firebaseAuth, (currentUser) => {
-    if (currentUser) navigate("/");
-  });
+    // Auth state listener to navigate to home page if user is already authenticated
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
+        if (currentUser) navigate("/");
+      });
+  
+      return () => unsubscribe(); // Cleanup the listener when the component unmounts
+    }, [navigate]);
 
   return (
     <Container showPassword={showPassword}>
@@ -55,6 +61,7 @@ export default function Signup() {
               value={formValues.email}
             />
 
+          {/* Password input field (conditionally rendered based on showPassword state) */}
           {showPassword && (
               <input
                 type="password"
@@ -70,6 +77,7 @@ export default function Signup() {
               />
             )}
 
+          {/* Button to toggle password visibility */}
           {!showPassword && (
               <button onClick={() => setShowPassword(true)}>Get Started</button>
             )}
