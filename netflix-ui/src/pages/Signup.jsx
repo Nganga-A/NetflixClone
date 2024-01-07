@@ -8,7 +8,7 @@ export default function Signup() {
   return (
     <Container>
       <BackgroundImage />
-      <div className="content flex">
+      <div className="content">
       <Header login  />
       <div className='body header flex column a-center j-center'>
         <div className='text flex column'>
@@ -77,14 +77,14 @@ const Container = styled.div`
         }
       }
     button {
-      padding: 0.3rem 0.5rem;
-      background-color: #e50914;
-      border: none;
-      cursor: pointer;
-      color: white;
-      border-radius:0.1rem;
-      font-weight:bolder;
-      font-size: 1.05rem;
+          padding: 0.3rem 0.5rem;
+    background-color: #e50914;
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius:0.1rem;
+    font-weight:bolder;
+    font-size: 1.05rem;
     }
     }
 
