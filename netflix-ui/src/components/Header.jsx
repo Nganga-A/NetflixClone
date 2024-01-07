@@ -21,7 +21,7 @@ const Container = styled.div`
   padding: 0 4rem;
   .logo {
     img {
-      height: 5rem;
+      height: 4.5rem;
     }
   }
   button {
