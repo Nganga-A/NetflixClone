@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 
 export default function Netflix() {
 
-  useState [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
  // Event handler for window scroll
  window.onscroll = () => {
@@ -16,7 +16,7 @@ export default function Netflix() {
 
   return (
     <div>
-      <Navbar isSCrolled={isScrolled} />
+      <Navbar isScrolled={isScrolled} />
     </div>
   )
 }
