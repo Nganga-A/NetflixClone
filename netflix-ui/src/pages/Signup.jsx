@@ -101,7 +101,7 @@ const Container = styled.div`
     display: grid;
     grid-templates-rows: 15vh 85vh;
     .header {
-      margin-top:-10rem;
+      margin-top:-15rem;
     }
     .body {
       gap:1rem;

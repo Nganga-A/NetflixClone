@@ -18,7 +18,7 @@ export default function Header(props) {
 }
 
 const Container = styled.div`
-  margin-top:-7rem;
+  margin-top:-14rem;
   padding: 0 4rem;
   .logo {
     img {
