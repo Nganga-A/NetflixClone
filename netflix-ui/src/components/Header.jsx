@@ -18,10 +18,10 @@ export default function Header(props) {
 }
 
 const Container = styled.div`
-  padding: 0 4rem;
+  padding: 0 1rem;
   .logo {
     img {
-      height: 4.5rem;
+      height: 4rem;
     }
   }
   button {
