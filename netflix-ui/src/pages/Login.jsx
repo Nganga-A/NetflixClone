@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
@@ -23,9 +23,16 @@ function Login() {
   };
 
   // Check if the user is already authenticated, then redirect
-  onAuthStateChanged(firebaseAuth, (currentUser) => {
-    if (currentUser) navigate("/");
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
+      if (currentUser) {
+        navigate("/");
+      }
+    });
+
+    // Cleanup the subscription to avoid memory leaks
+    return () => unsubscribe();
+  }, [navigate]);
 
 
   return (

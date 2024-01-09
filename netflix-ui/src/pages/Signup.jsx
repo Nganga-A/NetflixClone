@@ -41,12 +41,12 @@ export default function Signup() {
       <BackgroundImage />
       <div className="content">
       <Header login  />
-      <div className='body header flex column a-center j-center'>
-        <div className='text flex column'>
+      <div className='body flex column a-center  j-center'>
+        <div className='text flex column a-center j-center'>
           <h1>Unlimited movies, TV shows and more</h1>
           <h4>Watch anywhere, cancel anytime.</h4>
           <h6>Ready to watch? Enter your email to create or start membership</h6>
-        </div>
+        
         <div className='form'>
         <input
               type="email"
@@ -83,6 +83,7 @@ export default function Signup() {
             )}
         </div>
         <button onClick={handleSignUp}>Sign Up</button>
+        </div>
       </div>
       </div>
     </Container>
@@ -91,6 +92,9 @@ export default function Signup() {
 
 const Container = styled.div`
   position: relative;
+  .text {
+    padding: 10rem 0;
+  }
   .content {
     position: absolute;
     top: 0;
@@ -100,9 +104,6 @@ const Container = styled.div`
     width: 100vw;
     display: grid;
     grid-templates-rows: 15vh 85vh;
-    .header {
-      margin-top:-15rem;
-    }
     .body {
       gap:1rem;
       .text {
