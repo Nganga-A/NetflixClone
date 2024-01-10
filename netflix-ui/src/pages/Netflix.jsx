@@ -1,36 +1,35 @@
-import React, { useEffect, useState, useSelector, useDispatch } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import backgroundImage from "../assets/home.jpg";
 import MovieLogo from "../assets/homeTitle.webp";
-
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config.js";
 import { useNavigate } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
-// import { fetchMovies, getGenres } from "../store";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchMovies, getGenres } from "../store";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
-// import Slider from "../components/Slider";
+import Slider from "../components/slider.jsx";
 
 function Netflix() {
   const [isScrolled, setIsScrolled] = useState(false);
-  // const movies = useSelector((state) => state.netflix.movies);
-  // const genres = useSelector((state) => state.netflix.genres);
-  // const genresLoaded = useSelector((state) => state.netflix.genresLoaded);
+  const movies = useSelector((state) => state.netflix.movies);
+  const genres = useSelector((state) => state.netflix.genres);
+  const genresLoaded = useSelector((state) => state.netflix.genresLoaded);
 
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getGenres());
-  // }, []);
+  useEffect(() => {
+    dispatch(getGenres());
+  }, []);
 
-  // useEffect(() => {
-  //   if (genresLoaded) {
-  //     dispatch(fetchMovies({ genres, type: "all" }));
-  //   }
-  // }, [genresLoaded]);
+  useEffect(() => {
+    if (genresLoaded) {
+      dispatch(fetchMovies({ genres, type: "all" }));
+    }
+  }, [genresLoaded]);
 
   onAuthStateChanged(firebaseAuth, (currentUser) => {
     if (!currentUser) navigate("/login");
@@ -40,6 +39,8 @@ function Netflix() {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
     return () => (window.onscroll = null);
   };
+
+  console.log(movies);
 
   return (
     <Container>
@@ -69,7 +70,7 @@ function Netflix() {
           </div>
         </div>
       </div>
-      {/* <Slider movies={movies} /> */}
+      <Slider movies={movies} />
     </Container>
   );
 }
