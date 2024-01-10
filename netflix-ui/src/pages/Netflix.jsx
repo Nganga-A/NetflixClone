@@ -87,16 +87,16 @@ const Container = styled.div`
     }
     .container {
       position: absolute;
-      bottom: 2rem;
+      bottom: 4rem;
       .logo {
         img {
-          width: 100%;
-          height: 100%;
+          width: 85%;
+          height: 90%;
           margin-left: 2rem;
         }
       }
       .buttons {
-        margin: 1rem 2rem;
+        margin: 1rem 3rem;
         gap: 2rem;
         button {
           font-size: 1rem;
