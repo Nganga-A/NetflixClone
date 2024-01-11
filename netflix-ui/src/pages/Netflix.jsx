@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchMovies, getGenres } from "../store";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import Slider from "../components/slider.jsx";
+import Slider from "../components/Slider.jsx";
 
 function Netflix() {
   const [isScrolled, setIsScrolled] = useState(false);
