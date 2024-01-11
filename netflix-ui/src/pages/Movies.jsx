@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchMovies, getGenres } from "../store";
 import Slider from "../components/Slider";
+import SelectGenre from "../components/SelectGenre.jsx";
 
 
 function MoviePage() {
@@ -50,6 +51,7 @@ return (
     <div className="navbar">
         <Navbar isScrolled={isScrolled} />
     </div>
+    <SelectGenre />
     <div className="data">
         
         {movies.length ? <Slider movies={movies} /> : <NotAvailable />}
