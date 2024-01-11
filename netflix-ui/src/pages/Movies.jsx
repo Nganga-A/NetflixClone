@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchMovies, getGenres } from "../store";
 import Slider from "../components/Slider";
 import SelectGenre from "../components/SelectGenre.jsx";
+import NotAvailable from "../components/NotAvailable.jsx";
 
 
 function MoviePage() {
