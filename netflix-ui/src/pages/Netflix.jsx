@@ -27,7 +27,7 @@ function Netflix() {
 
   useEffect(() => {
     if (genresLoaded) {
-      dispatch(fetchMovies({ genres, type: "all" }));
+      dispatch(fetchMovies({ type: "all" }));
     }
   }, [genresLoaded]);
 

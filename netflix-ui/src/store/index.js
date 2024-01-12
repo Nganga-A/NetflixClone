@@ -42,7 +42,7 @@ const createArrayFromRawData = (array, moviesArray, genres) => {
 };
 
 // Helper function to fetch raw movie data based on API, genres, and optional paging
-const getRawData = async (api, genres, paging = false) => {
+const getRawData = async (api, genres, paging) => {
     const moviesArray = [];
     for (let i = 1; moviesArray.length < 60 && i < 10; i++) {
         const {
@@ -61,7 +61,7 @@ export const fetchDataByGenre = createAsyncThunk(
             netflix: { genres },
         } = thunkAPI.getState();
         return getRawData(
-            `https://api.themoviedb.org/3/discover/${type}?api_key=${API_KEY}&with_genres=${genre}`,
+            `${TMDB_BASE_URL}/discover/${type}?api_key=${API_KEY}&with_genres=${genre}`,
             genres
         );
     }

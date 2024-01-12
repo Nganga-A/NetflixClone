@@ -52,9 +52,8 @@ return (
     <div className="navbar">
         <Navbar isScrolled={isScrolled} />
     </div>
-    <SelectGenre genres={genres} />
     <div className="data">
-        
+    <SelectGenre genres={genres} type="movie" />
         {movies.length ? <Slider movies={movies} /> : <NotAvailable />}
     </div>
     </Container>
