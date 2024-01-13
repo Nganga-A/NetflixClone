@@ -1,5 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useDispatch} from "react-redux";
 import styled from "styled-components";
 import { fetchDataByGenre } from "../store";
 
@@ -7,11 +8,13 @@ import { fetchDataByGenre } from "../store";
 export default function SelectGenre({ genres, type }) {
 
     const dispatch = useDispatch();
+    const location = useLocation();
+    const isMoviesPage = location.pathname === "/movies";
 
     // Render a dropdown select element for genres
     return (
         <Container className="flex">
-        <span>Movies </span>
+        <span>{isMoviesPage ? "Movies" : "Tv Shows"} </span>
         <Select
             className="flex"
             onChange={(e) => {
