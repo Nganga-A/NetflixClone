@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IoPlayCircleSharp } from "react-icons/io5";
@@ -13,191 +13,212 @@ import { useDispatch } from "react-redux";
 import { removeMovieFromLiked } from "../store";
 import video from "../assets/video.mp4";
 
-// React.memo is used to memoize the component for performance optimization
 export default React.memo(function Card({ index, movieData, isLiked = false }) {
-const navigate = useNavigate();
-const dispatch = useDispatch();
-const [isHovered, setIsHovered] = useState(false);
-const [email, setEmail] = useState(undefined);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [isHovered, setIsHovered] = useState(false);
+    const [email, setEmail] = useState(undefined);
+    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
-// Firebase authentication state change listener
-onAuthStateChanged(firebaseAuth, (currentUser) => {
-    if (currentUser) {
-    setEmail(currentUser.email);
-    } else {
-    navigate("/login");
-    }
-});
-
-// Function to add the movie to the user's list
-const addToList = async () => {
-    try {
-    // Send a POST request to the backend API to add the movie to the user's list
-    await axios.post("http://localhost:5000/api/user/add", {
-        email,
-        data: movieData,
+    // Firebase authentication state change listener
+    onAuthStateChanged(firebaseAuth, (currentUser) => {
+        if (currentUser) {
+            setEmail(currentUser.email);
+        } else {
+            navigate("/login");
+        }
     });
-    } catch (error) {
-    console.log(error);
-    }
-};
 
-// JSX structure for the movie card
-return (
-    <Container
-    onMouseEnter={() => setIsHovered(true)}
-    onMouseLeave={() => setIsHovered(false)}
-    >
-    <img
-        src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
-        alt="card"
-        onClick={() => navigate("/player")}
-    />
+    // Function to add the movie to the user's list
+    const addToList = async () => {
+        try {
+            // Send a POST request to the backend API to add the movie to the user's list
+            await axios.post("http://localhost:5000/api/user/add", {
+                email,
+                data: movieData,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-    {isHovered && (
-        <div className="hover">
-        <div className="image-video-container">
+    // Function to handle starting the video playback
+    const startVideoPlayback = () => {
+        setIsVideoPlaying(true);
+    };
+
+    useEffect(() => {
+        // Use useEffect to start video playback after a few seconds
+        let timeout;
+        if (isHovered) {
+            timeout = setTimeout(startVideoPlayback, 1500);
+        }
+        return () => {
+            // Clear the timeout if component unmounts or is no longer hovered
+            clearTimeout(timeout);
+        };
+    }, [isHovered]);
+
+    return (
+        <Container
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => {
+                setIsHovered(false);
+                setIsVideoPlaying(false); // Reset video playing state when not hovered
+            }}
+        >
             <img
-            src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
-            alt="card"
-            onClick={() => navigate("/player")}
-            />
-            <video
-            src={video}
-            autoPlay={true}
-            loop
-            muted
-            onClick={() => navigate("/player")}
-            />
-        </div>
-        <div className="info-container flex column">
-            <h3 className="name" onClick={() => navigate("/player")}>
-            {movieData.name}
-            </h3>
-            <div className="icons flex j-between">
-            <div className="controls flex">
-                {/* Icons for different controls */}
-                <IoPlayCircleSharp
-                title="Play"
+                src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
+                alt="card"
                 onClick={() => navigate("/player")}
-                />
-                <RiThumbUpFill title="Like" />
-                <RiThumbDownFill title="Dislike" />
-                {isLiked ? (
-                <BsCheck
-                    title="Remove from List"
-                    onClick={() =>
-                    dispatch(
-                        removeMovieFromLiked({ movieId: movieData.id, email })
-                    )
-                    }
-                />
-                ) : (
-                <AiOutlinePlus
-                    title="Add to my list"
-                    onClick={addToList}
-                />
-                )}
-            </div>
-            <div className="info">
-                <BiChevronDown title="More Info" />
-            </div>
-            </div>
-            <div className="genres flex">
-            <ul className="flex">
-                {/* Display movie genres */}
-                {movieData.genres.map((genre, index) => (
-                <li key={index}>{genre}</li>
-                ))}
-            </ul>
-            </div>
-        </div>
-        </div>
-    )}
-    </Container>
-);
-});
+            />
 
+            {isHovered && (
+                <div className="hover">
+                    <div className="image-video-container">
+                        <img
+                            src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
+                            alt="card"
+                            onClick={() => navigate("/player")}
+                        />
+                        {isVideoPlaying && (
+                            <video
+                                src={video}
+                                autoPlay={true}
+                                loop
+                                muted
+                                onClick={() => navigate("/player")}
+                            />
+                        )}
+                    </div>
+                    <div className="info-container flex column">
+                        <h3 className="name" onClick={() => navigate("/player")}>
+                            {movieData.name}
+                        </h3>
+                        <div className="icons flex j-between">
+                            <div className="controls flex">
+                                {/* Icons for different controls */}
+                                <IoPlayCircleSharp
+                                    title="Play"
+                                    onClick={() => navigate("/player")}
+                                />
+                                <RiThumbUpFill title="Like" />
+                                <RiThumbDownFill title="Dislike" />
+                                {isLiked ? (
+                                    <BsCheck
+                                        title="Remove from List"
+                                        onClick={() =>
+                                            dispatch(
+                                                removeMovieFromLiked({
+                                                    movieId: movieData.id,
+                                                    email,
+                                                })
+                                            )
+                                        }
+                                    />
+                                ) : (
+                                    <AiOutlinePlus
+                                        title="Add to my list"
+                                        onClick={addToList}
+                                    />
+                                )}
+                            </div>
+                            <div className="info">
+                                <BiChevronDown title="More Info" />
+                            </div>
+                        </div>
+                        <div className="genres flex">
+                            <ul className="flex">
+                                {/* Display movie genres */}
+                                {movieData.genres.map((genre, index) => (
+                                    <li key={index}>{genre}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </Container>
+    );
+});
 
 const Container = styled.div`
-max-width: 230px;
-width: 230px;
-height: 100%;
-cursor: pointer;
-position: relative;
-img {
-    border-radius: 0.2rem;
-    width: 100%;
+    max-width: 230px;
+    width: 230px;
     height: 100%;
-    z-index: 10;
-}
-
-.hover {
-    // Styling for the hover container
-    z-index: 99;
-    height: max-content;
-    width: 20rem;
-    position: absolute;
-    top: -15vh;
-    left: 0;
-    border-radius: 0.3rem;
-    box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
-    background-color: #181818;
-    transition: 0.3s ease-in-out;
-
-    .image-video-container {
+    cursor: pointer;
     position: relative;
-    height: 140px;
     img {
+        border-radius: 0.2rem;
         width: 100%;
-        height: 140px;
-        object-fit: cover;
-        border-radius: 0.3rem;
-        top: 0;
-        z-index: 4;
-        position: absolute;
-    }
-    video {
-        width: 100%;
-        height: 140px;
-        object-fit: cover;
-        border-radius: 0.3rem;
-        top: 0;
-        z-index: 5;
-        position: absolute;
-    }
+        height: 100%;
+        z-index: 10;
     }
 
-    .info-container {
-    padding: 1rem;
-    gap: 0.5rem;
-    }
-
-    .icons {
-    .controls {
-        display: flex;
-        gap: 1rem;
-    }
-    svg {
-        font-size: 2rem;
-        cursor: pointer;
+    .hover {
+        z-index: 99;
+        height: max-content;
+        width: 20rem;
+        position: absolute;
+        top: -13vh;
+        left: 0;
+        border-radius: 0.3rem;
+        box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
+        background-color: #181818;
         transition: 0.3s ease-in-out;
-        &:hover {
-        color: #b8b8b8;
-        }
-    }
-    }
-    .genres {
-    ul {
-        gap: 1rem;
-        li {
-        padding-right: 0.7rem;
-        &:first-of-type {
-            list-style-type: none;
-        }
-        }
-    }
-    }
-}
-`;
 
+        .image-video-container {
+            position: relative;
+            height: 140px;
+            img {
+                width: 100%;
+                height: 140px;
+                object-fit: cover;
+                border-radius: 0.3rem;
+                top: 0;
+                z-index: 4;
+                position: absolute;
+            }
+            video {
+                width: 100%;
+                height: 140px;
+                object-fit: cover;
+                border-radius: 0.3rem;
+                top: 0;
+                z-index: 5;
+                position: absolute;
+            }
+        }
+
+        .info-container {
+            padding: 1rem;
+            gap: 0.5rem;
+        }
+
+        .icons {
+            .controls {
+                display: flex;
+                gap: 1rem;
+            }
+            svg {
+                font-size: 2rem;
+                cursor: pointer;
+                transition: 0.3s ease-in-out;
+                &:hover {
+                    color: #b8b8b8;
+                }
+            }
+        }
+        .genres {
+            ul {
+                gap: 1rem;
+                li {
+                    padding-right: 0.7rem;
+                    &:first-of-type {
+                        list-style-type: none;
+                    }
+                }
+            }
+        }
+    }
+`;
