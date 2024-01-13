@@ -10,6 +10,8 @@ export default function SelectGenre({ genres, type }) {
 
     // Render a dropdown select element for genres
     return (
+        <Container className="flex">
+        <span>Movies </span>
         <Select
             className="flex"
             onChange={(e) => {
@@ -32,13 +34,23 @@ export default function SelectGenre({ genres, type }) {
                 );
             })}
         </Select>
+        </Container>
     );
 }
 
+const Container = styled.div`
+    display: flex;
+    align-items: center;
+    span {
+        font-size:1.2rem;
+        margin-left:3rem;
+    }
+`;
+
 const Select = styled.select`
-    margin-left: 5rem;
+    margin-left: 1rem;
     cursor: pointer;
-    font-size: 1.4rem;
-    background-color: rgba(0, 0, 0, 0.4);
+    font-size: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.9);
     color: white;
 `;
