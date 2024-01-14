@@ -58,7 +58,7 @@ try {
     const movieIndex = movies.findIndex(({ id }) => id === movieId);
 
     if (movieIndex !== -1) {
-        // If the movie is found in the liked list, remove it
+        // If the movie is found in the liked list, remove it     //if no element is found in array,findIndex returns -1.
         movies.splice(movieIndex, 1);
 
         await User.findByIdAndUpdate(
