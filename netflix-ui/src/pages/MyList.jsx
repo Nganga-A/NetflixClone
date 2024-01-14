@@ -36,7 +36,7 @@ export default function MyList() {
     <Container>
       <Navbar isScrolled={isScrolled} />
       <div className="content flex column">
-        <h1>My List</h1>
+        <h2>My List</h2>
         <div className="grid flex">
           {movies.map((movie, index) => {
             return (
@@ -59,8 +59,9 @@ const Container = styled.div`
     margin: 2rem;
     margin-top: 8rem;
     gap: 3rem;
-    h1 {
+    h2 {
       margin-left: 1rem;
+      font-size: 160%;
     }
     .grid {
       flex-wrap: wrap;
