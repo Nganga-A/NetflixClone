@@ -2,15 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const userRoutes = require("./routes/UserRoutes");
 const mongoose = require("mongoose");
-import  url  from"./utils/constants";
+const constants = require("./utils/constants.js");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
 mongoose
-  .connect(url)
+  .connect(constants.url)
   .then(() => {
     console.log("DB Connetion Successfull");
   })
