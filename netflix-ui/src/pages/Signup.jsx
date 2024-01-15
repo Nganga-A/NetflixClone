@@ -96,6 +96,7 @@ const Container = styled.div`
     padding: 10rem 0;
   }
   .content {
+    fit-content: stretch;
     position: absolute;
     top: 0;
     left: 0;
@@ -115,6 +116,7 @@ const Container = styled.div`
         }
       }
       .form {
+        fit-content:stretch;
         display:grid;
         grid-template-columns: ${({ showPassword }) =>
           showPassword ? "1fr 1fr" : "2fr 1fr"};
@@ -152,4 +154,5 @@ const Container = styled.div`
     }
     }
   }
+
 `;
