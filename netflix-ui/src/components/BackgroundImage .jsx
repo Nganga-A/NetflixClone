@@ -16,5 +16,6 @@ const Container = styled.div`
   img {
     height: 100vh;
     width: 100vw;
+    object-fit: cover;
   }
   `;
