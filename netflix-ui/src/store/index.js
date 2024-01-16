@@ -4,11 +4,12 @@ import {
     createSlice,
 } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_KEY, TMDB_BASE_URL } from "../utils/constants";
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-const TMDB_BASE_URL = process.env.REACT_APP_API_URL;
+// const API_KEY = process.env.REACT_APP_API_KEY;
+// const TMDB_BASE_URL = process.env.REACT_APP_API_URL;
 
-// Use apiKey and apiUrl as needed in your code
+
 
 
 // Define the initial state for the Netflix slice of the Redux store
