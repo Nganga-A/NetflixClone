@@ -78,19 +78,34 @@ const Container = styled.div`
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.7);
     grid-template-rows: 15vh 85vh;
+
+
     .form-container {
       gap: 2rem;
       height: 85vh;
+      @media (max-width: 768px) {
+        height: 80vh;
+      }
+
       .form {
         padding: 2rem;
         background-color: #000000b0;
         gap: 2rem;
         color: white;
+        @media (max-width: 768px) {
+          padding: 1rem;
+        }
+
         .container {
           gap: 2rem;
+          @media (max-width: 768px) {
+            gap: 1.2rem;
+          }
           input {
             padding: 0.5rem 1rem;
             width: 15rem;
+            color: black;
+            background-color:white;
           }
           button {
             padding: 0.5rem 1rem;
@@ -101,6 +116,7 @@ const Container = styled.div`
             border-radius: 0.2rem;
             font-weight: bolder;
             font-size: 1.05rem;
+            
           }
         }
       }
