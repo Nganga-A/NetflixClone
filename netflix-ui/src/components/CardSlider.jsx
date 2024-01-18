@@ -41,7 +41,7 @@ export default React.memo(function CardSlider({ data, title }) {
     };
 
     const handleSwipe = (deltaX) => {
-        const sensitivity = 50;
+        const sensitivity = 150;
 
         if (deltaX > sensitivity) {
             handleDirection("left");
@@ -115,7 +115,7 @@ const Container = styled.div`
 
     @media (max-width: 767px) {
         gap: 0.5rem;
-        padding: 0.8rem 0;
+        padding: 0.5rem 0;
     }
 
     h2 {
