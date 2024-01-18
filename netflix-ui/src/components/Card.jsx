@@ -136,6 +136,10 @@ width: 230px;
 height: 100%;
 cursor: pointer;
 position: relative;
+@media (max-width: 767px) {
+    width:107px;
+    height: 70px;
+}
 img {
     border-radius: 0.2rem;
     width: 100%;
@@ -143,6 +147,9 @@ img {
     z-index: 10;
 }
 .hover {
+    @media (max-width: 767px) { 
+        display:none;
+    }
     z-index: 99;
     height: max-content;
     width: 20rem;
