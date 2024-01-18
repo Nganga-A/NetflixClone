@@ -62,6 +62,8 @@ export default React.memo(function CardSlider({ data, title }) {
         }
     };
 
+    const isSmallScreen = window.innerWidth <= 767;
+
     return (
         <Container
             className="flex column"
@@ -72,13 +74,15 @@ export default React.memo(function CardSlider({ data, title }) {
             onTouchMove={handleTouchMove}
         >
             <h2>{title}</h2>
-            <div className="wrapper">
+            <div className={`wrapper ${isSmallScreen ? "swipe-enabled" : ""}`}>
                 {/* Left navigation control */}
-                <div
-                    className={`slider-action left ${!showControls ? "none" : ""} flex j-center a-center`}
-                >
-                    <AiOutlineLeft onClick={() => handleDirection("left")} />
-                </div>
+                {!isSmallScreen && (
+                    <div
+                        className={`slider-action left ${!showControls ? "none" : ""} flex j-center a-center`}
+                    >
+                        <AiOutlineLeft onClick={() => handleDirection("left")} />
+                    </div>
+                )}
 
                 {/* Slider content */}
                 <div className="slider flex" ref={listRef}>
@@ -88,11 +92,13 @@ export default React.memo(function CardSlider({ data, title }) {
                 </div>
 
                 {/* Right navigation control */}
-                <div
-                    className={`slider-action right ${!showControls ? "none" : ""} flex j-center a-center`}
-                >
-                    <AiOutlineRight onClick={() => handleDirection("right")} />
-                </div>
+                {!isSmallScreen && (
+                    <div
+                        className={`slider-action right ${!showControls ? "none" : ""} flex j-center a-center`}
+                    >
+                        <AiOutlineRight onClick={() => handleDirection("right")} />
+                    </div>
+                )}
             </div>
         </Container>
     );
@@ -102,18 +108,22 @@ const Container = styled.div`
     gap: 1rem;
     position: relative;
     padding: 2rem 0;
+
     @media (max-width: 767px) {
         gap: 0.5rem;
         padding: 0.8rem 0;
     }
+
     h2 {
         margin-left: 50px;
         font-size: 160%;
+
         @media (max-width: 767px) {
             margin-left: 25px;
             font-size: 115%;
         }
     }
+
     .wrapper {
         .slider {
             width: max-content;
@@ -121,32 +131,53 @@ const Container = styled.div`
             transform: translateX(0px);
             transition: 0.3s ease-in-out;
             margin-left: 50px;
+
             @media (max-width: 767px) {
                 gap: 0.6rem;
                 margin-left: 25px;
             }
         }
+
         .slider-action {
             position: absolute;
-            z-index: 99;
+            z-index: 1;
             height: 100%;
             top: 0;
             bottom: 0;
             width: 50px;
             cursor: pointer;
             transition: 0.3s ease-in-out;
+
             svg {
                 font-size: 2rem;
             }
+
+            @media (max-width: 767px) {
+                display: none; // Hide arrow controls on small screens
+            }
         }
+
         .none {
             display: none;
         }
+
         .left {
             left: 0;
         }
+
         .right {
             right: 0;
+        }
+    }
+
+    .swipe-enabled {
+        overflow: hidden;
+        touch-action: pan-y;
+        user-select: none;
+        cursor: grab;
+
+        &:active {
+            cursor: grabbing;
         }
     }
 `;
