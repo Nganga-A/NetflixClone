@@ -6,8 +6,8 @@ import Card from "./Card";
 export default React.memo(function CardSlider({ data, title }) {
     const listRef = useRef();
     const [sliderPosition, setSliderPosition] = useState(0);
-    const [showControls, setShowControls] = useState(false);
     const [touchStartX, setTouchStartX] = useState(null);
+    const [controlsVisible, setControlsVisible] = useState(false);
 
     // Calculate the maximum slider position based on the length of the data array
     const maxSliderPosition = data.length - 1;
@@ -40,6 +40,16 @@ export default React.memo(function CardSlider({ data, title }) {
         setSliderPosition(newSliderPosition);
     };
 
+    const handleSwipe = (deltaX) => {
+        const sensitivity = 50;
+
+        if (deltaX > sensitivity) {
+            handleDirection("left");
+        } else if (deltaX < -sensitivity) {
+            handleDirection("right");
+        }
+    };
+
     const handleTouchStart = (e) => {
         setTouchStartX(e.touches[0].clientX);
     };
@@ -49,16 +59,10 @@ export default React.memo(function CardSlider({ data, title }) {
             const touchEndX = e.touches[0].clientX;
             const deltaX = touchEndX - touchStartX;
 
-            // Adjust the sensitivity based on your needs
-            const sensitivity = 50;
-
-            if (deltaX > sensitivity) {
-                handleDirection("left");
-            } else if (deltaX < -sensitivity) {
-                handleDirection("right");
+            if (Math.abs(deltaX) > 10) {
+                handleSwipe(deltaX);
+                setTouchStartX(null);
             }
-
-            setTouchStartX(null);
         }
     };
 
@@ -67,9 +71,9 @@ export default React.memo(function CardSlider({ data, title }) {
     return (
         <Container
             className="flex column"
-            showControls={showControls}
-            onMouseEnter={() => setShowControls(true)}
-            onMouseLeave={() => setShowControls(false)}
+            showControls={controlsVisible}
+            onMouseEnter={() => setControlsVisible(true)}
+            onMouseLeave={() => setControlsVisible(false)}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
         >
@@ -78,14 +82,14 @@ export default React.memo(function CardSlider({ data, title }) {
                 {/* Left navigation control */}
                 {!isSmallScreen && (
                     <div
-                        className={`slider-action left ${!showControls ? "none" : ""} flex j-center a-center`}
+                        className={`slider-action left ${!controlsVisible ? "none" : ""} flex j-center a-center`}
                     >
                         <AiOutlineLeft onClick={() => handleDirection("left")} />
                     </div>
                 )}
 
                 {/* Slider content */}
-                <div className="slider flex" ref={listRef}>
+                <div className={`slider flex`} ref={listRef}>
                     {data.map((movie, index) => (
                         <Card movieData={movie} index={index} key={movie.id} />
                     ))}
@@ -94,7 +98,7 @@ export default React.memo(function CardSlider({ data, title }) {
                 {/* Right navigation control */}
                 {!isSmallScreen && (
                     <div
-                        className={`slider-action right ${!showControls ? "none" : ""} flex j-center a-center`}
+                        className={`slider-action right ${!controlsVisible ? "none" : ""} flex j-center a-center`}
                     >
                         <AiOutlineRight onClick={() => handleDirection("right")} />
                     </div>
