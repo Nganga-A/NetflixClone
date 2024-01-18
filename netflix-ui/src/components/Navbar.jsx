@@ -88,6 +88,7 @@ const Container = styled.div`
     .scrolled {
         background-color: black;
     }
+
     nav {
         position: sticky;
         top: 0;
@@ -100,16 +101,37 @@ const Container = styled.div`
         padding: 0 1rem;
         align-items: center;
         transition: 0.3s ease-in-out;
+
     .left {
         gap: 2rem;
+        @media (max-width: 767px) {
+            padding-top: 2rem;
+            gap:0rem;
+            
+        }
         .brand {
             img {
                 height: 4rem;
+                @media (max-width: 767px) {
+                    height:2.5rem;
+                    padding-right: 11rem;
+                }
+            }
+        @media (max-width: 767px) {
+            flex-direction: column;
+            
             }
         }
+
     .links {
         list-style-type: none;
         gap: 2rem;
+        @media (max-width: 767px) {
+            gap: 0.8rem;
+            text-align: center;
+            padding-left: 0rem;
+            
+        }
         li {
             a {
                 color: white;
@@ -117,7 +139,16 @@ const Container = styled.div`
                 }
             }
         }
+        @media (max-width: 767px) {
+            display: flex;
+            flex-direction: column; 
+            
+            
+            
+        }
+    
     }
+
     .right {
         gap: 1rem;
         button {
@@ -131,7 +162,13 @@ const Container = styled.div`
             color: #f34242;
             font-size: 1.2rem;
             }
+    @media (max-width: 767px) {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1rem; 
+        }
     }
+
     .search {
         display: flex;
         gap: 0.4rem;
