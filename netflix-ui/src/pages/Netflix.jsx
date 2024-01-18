@@ -85,20 +85,33 @@ const Container = styled.div`
     img {
       height: 100vh;
       width: 100vw;
+      object-fit: cover;
     }
     .container {
       position: absolute;
       bottom: 4rem;
+      @media screen and (max-width: 767px) {
+        bottom:2rem;
+      }
       .logo {
         img {
           width: 85%;
           height: 90%;
           margin-left: 2rem;
+          @media screen and (max-width: 767px) {
+            width: 60%;
+            margin-left: 1.3rem;
+          }
         }
+        
       }
       .buttons {
         margin: 1rem 3rem;
         gap: 2rem;
+        @media screen and (max-width: 767px) {
+          margin: 0.5rem 1.3rem;
+          gap: 0.5rem;
+        }
         button {
           font-size: 1rem;
           gap: 1rem;
@@ -109,6 +122,13 @@ const Container = styled.div`
           border: none;
           cursor: pointer;
           transition: 0.2s ease-in-out;
+
+          @media screen and (max-width: 767px) {
+            gap:0.5rem;
+            font-size: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+          }
           &:hover {
             opacity: 0.8;
           }
