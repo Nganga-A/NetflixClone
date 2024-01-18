@@ -137,8 +137,8 @@ height: 100%;
 cursor: pointer;
 position: relative;
 @media (max-width: 767px) {
-    width:107px;
-    height: 70px;
+    width:110px;
+    height: 105px;
 }
 img {
     border-radius: 0.2rem;
