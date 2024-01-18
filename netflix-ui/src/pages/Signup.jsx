@@ -92,8 +92,11 @@ export default function Signup() {
 
 const Container = styled.div`
   position: relative;
+
   .text {
     padding: 10rem 0;
+      width: 80vw;
+
   }
   .content {
     fit-content: stretch;
@@ -105,24 +108,41 @@ const Container = styled.div`
     width: 100vw;
     display: grid;
     grid-templates-rows: 15vh 85vh;
+
     .body {
       gap:1rem;
+
       .text {
         gap: 1rem;
         text-align:center;
-        fontsize: 2rem;
+
         h1 {
-          padding:0 25rem;
+          padding:0 20rem;
+          @media (max-width: 768px)  {
+            padding: 0rem;
+            width: 80vw;
+          }
         }
       }
+      
       .form {
-        fit-content:stretch;
-        display:grid;
-        grid-template-columns: ${({ showPassword }) =>
-          showPassword ? "1fr 1fr" : "2fr 1fr"};
-        width:60%;
+        fit-content: stretch;
+        display: grid;
+        grid-template-rows: auto auto; // Set to two rows by default
+    
+        @media (max-width: 768px) {
+          grid-template-rows: ${({ showPassword }) =>
+            showPassword ? "auto auto" : "auto"}; // Set to two rows for smaller screens if showPassword is true
+        }
+    
+        @media (min-width: 769px) {
+          grid-template-columns: ${({ showPassword }) =>
+            showPassword ? "1fr 1fr" : "2fr 1fr"}; // Set to two columns for larger screens
+          grid-template-rows: auto; // Reset to one row on larger screens
+        }
         input {
-          color:black;
+          color: black;
+          background-color:white;
           border: none;
           padding: 0.8rem;
           font-size: 1.2rem;
