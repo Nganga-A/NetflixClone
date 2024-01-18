@@ -7,41 +7,60 @@ export default React.memo(function CardSlider({ data, title }) {
     const listRef = useRef();
     const [sliderPosition, setSliderPosition] = useState(0);
     const [showControls, setShowControls] = useState(false);
+    const [touchStartX, setTouchStartX] = useState(null);
 
     // Calculate the maximum slider position based on the length of the data array
     const maxSliderPosition = data.length - 1;
 
     const handleDirection = (direction) => {
         // Calculate the maximum and minimum slider positions
-        const maxSliderPosition = data.length - 1;
         const minSliderPosition = 0;
-    
+
         // Calculate the new slider position based on the direction
         let newSliderPosition =
             direction === "left" ? sliderPosition - 1 : sliderPosition + 1;
-    
+
         // Apply loop behavior if at the last card and moving to the right
         if (newSliderPosition > maxSliderPosition) {
             newSliderPosition = 0;
         }
-    
+
         // Apply loop behavior if at the first card and moving to the left
         if (newSliderPosition < minSliderPosition) {
             newSliderPosition = maxSliderPosition;
         }
-    
+
         // Calculate the new distance based on the new position
         const distance = -(230 * newSliderPosition) + (newSliderPosition === 0 ? 0 : 10);
-    
+
         // Apply the translation using transform style
         listRef.current.style.transform = `translateX(${distance}px)`;
-    
+
         // Update the slider position
         setSliderPosition(newSliderPosition);
     };
-    
 
-    
+    const handleTouchStart = (e) => {
+        setTouchStartX(e.touches[0].clientX);
+    };
+
+    const handleTouchMove = (e) => {
+        if (touchStartX !== null) {
+            const touchEndX = e.touches[0].clientX;
+            const deltaX = touchEndX - touchStartX;
+
+            // Adjust the sensitivity based on your needs
+            const sensitivity = 50;
+
+            if (deltaX > sensitivity) {
+                handleDirection("left");
+            } else if (deltaX < -sensitivity) {
+                handleDirection("right");
+            }
+
+            setTouchStartX(null);
+        }
+    };
 
     return (
         <Container
@@ -49,6 +68,8 @@ export default React.memo(function CardSlider({ data, title }) {
             showControls={showControls}
             onMouseEnter={() => setShowControls(true)}
             onMouseLeave={() => setShowControls(false)}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
         >
             <h2>{title}</h2>
             <div className="wrapper">
@@ -81,10 +102,17 @@ const Container = styled.div`
     gap: 1rem;
     position: relative;
     padding: 2rem 0;
+    @media (max-width: 767px) {
+        gap: 0.5rem;
+        padding: 0.8rem 0;
+    }
     h2 {
         margin-left: 50px;
         font-size: 160%;
-        
+        @media (max-width: 767px) {
+            margin-left: 25px;
+            font-size: 115%;
+        }
     }
     .wrapper {
         .slider {
@@ -93,6 +121,10 @@ const Container = styled.div`
             transform: translateX(0px);
             transition: 0.3s ease-in-out;
             margin-left: 50px;
+            @media (max-width: 767px) {
+                gap: 0.6rem;
+                margin-left: 25px;
+            }
         }
         .slider-action {
             position: absolute;
