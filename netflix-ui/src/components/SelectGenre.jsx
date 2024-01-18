@@ -39,6 +39,10 @@ const Container = styled.div`
   span {
     font-size: 1.2rem;
     margin-left: 3rem;
+    @media (max-width: 767px) { 
+      margin-left:1.7rem;
+      font-size:1.1rem;
+    }
   }
 `;
 
@@ -54,12 +58,14 @@ const CustomSelect = styled.select`
   &:focus {
     outline: none;
   }
+  @media (max-width: 767px) { 
+    font-size:1.1rem;
+  }
 `;
 
 const Option = styled.option`
   padding: 1rem;
   display: inline-block;
-  width: 100%;
   box-sizing: border-box;
   height: 5rem;
 `;
