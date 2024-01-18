@@ -59,9 +59,15 @@ const Container = styled.div`
     margin: 2rem;
     margin-top: 8rem;
     gap: 3rem;
+    @media (max-width: 767px) {
+      gap: 0.8rem;
+      margin-top: 7rem;
+    }
     h2 {
-      margin-left: 1rem;
       font-size: 160%;
+      @media (max-width: 767px) {
+        font-size:130%;
+      }
     }
     .grid {
       flex-wrap: wrap;
