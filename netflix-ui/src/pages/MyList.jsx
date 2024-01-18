@@ -56,22 +56,27 @@ export default function MyList() {
 
 const Container = styled.div`
   .content {
-    margin: 2rem;
+    margin-left: 2rem;
     margin-top: 8rem;
     gap: 3rem;
     @media (max-width: 767px) {
       gap: 0.8rem;
       margin-top: 7rem;
+      margin-left:0.8rem;
     }
     h2 {
       font-size: 160%;
       @media (max-width: 767px) {
         font-size:130%;
+        margin-left:0.7rem;
       }
     }
     .grid {
       flex-wrap: wrap;
       gap: 1rem;
+      @media (max-width: 767px) { 
+        flex-wrap:wrap;
+      }
     }
   }
 `;
