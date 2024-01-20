@@ -121,7 +121,6 @@ const Container = styled.div`
     h2 {
         margin-left: 50px;
         font-size: 160%;
-
         @media (max-width: 767px) {
             margin-left: 25px;
             font-size: 115%;
@@ -135,7 +134,6 @@ const Container = styled.div`
             transform: translateX(0px);
             transition: 0.3s ease-in-out;
             margin-left: 50px;
-
             @media (max-width: 767px) {
                 gap: 0.6rem;
                 margin-left: 25px;
